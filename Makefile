@@ -10,7 +10,7 @@ CFLAGS = -Wall -Wextra -g
 SRC = src/*.c
 
 # Executable name
-EXEC = main
+EXEC = fm
 
 # Default target: build the executable
 build:
