@@ -52,13 +52,17 @@ int main(int argc, char *argv[]) {
         if (strcmp(arg, "pwdn") == 0) {
             printf("Entered: %s\n", arg);
             current_dir_name_path(arg);
+            break;
         } else if (strcmp(arg, "pwdp") == 0) {
             printf("Entered: %s\n", arg);
             current_dir_name_path(arg);
+            break;
         } else if (strcmp(arg, "lsc") == 0) {
-            list_directory(".");                
-        } else if (strcmp(arg, "ls") == 0 && argv[2] != NULL) {
-            list_directory(argv[2]);
+            list_directory(".");
+            break;                
+        } else if (strcmp(arg, "ls") == 0 && i + 1 < argc) {
+            list_directory(argv[i + 1]);
+            break;
         } else {
             printf("Entered nothing good!\n");
         }
