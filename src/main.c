@@ -1,13 +1,15 @@
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
+#include <dirent.h>
 
 
-void current_dir_name(const char *str) {
+void current_dir_name_path(const char *str) {
     char cwd[256];
 
     if (getcwd(cwd, sizeof(cwd)) == NULL) {
         perror("getcwd() error");
+        return;
     } else {
         char *ptr;
         ptr = strrchr(cwd, '/');
@@ -19,8 +21,27 @@ void current_dir_name(const char *str) {
                 printf("current directory path: %s\n", cwd);
             }
         }
-        //printf("current working directory is: %s\n", cwd);
     }
+}
+
+void list_directory(const char *str) {
+    printf("listing stuff intensely\n");
+
+    DIR *dir;
+    struct dirent *entry;
+
+    dir = opendir(str);
+
+    if (dir == NULL) {
+        perror("opendir() error");
+        return;
+    }
+
+    while((entry = readdir(dir)) != NULL) {
+        printf("%s\n", entry->d_name);
+    }
+
+    closedir(dir); 
 }
 
 int main(int argc, char *argv[]) {
@@ -30,11 +51,14 @@ int main(int argc, char *argv[]) {
         char *arg = argv[i];
         if (strcmp(arg, "pwdn") == 0) {
             printf("Entered: %s\n", arg);
-            //printf("Current dir is blabla\n");
-            current_dir_name(arg);
+            current_dir_name_path(arg);
         } else if (strcmp(arg, "pwdp") == 0) {
             printf("Entered: %s\n", arg);
-            current_dir_name(arg);
+            current_dir_name_path(arg);
+        } else if (strcmp(arg, "lsc") == 0) {
+            list_directory(".");                
+        } else if (strcmp(arg, "ls") == 0 && argv[2] != NULL) {
+            list_directory(argv[2]);
         } else {
             printf("Entered nothing good!\n");
         }
