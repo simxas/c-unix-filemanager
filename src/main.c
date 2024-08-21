@@ -44,6 +44,18 @@ void list_directory(const char *str) {
     closedir(dir); 
 }
 
+void changing_directory(const char *path) {
+    int dir_change = chdir(path);
+    if (dir_change == 0) {
+        printf("%s\n", path);
+        current_dir_name_path("pwdn");    
+        list_directory(".");
+    } else {
+        perror("chdir() error");
+    }
+}
+
+
 int main(int argc, char *argv[]) {
     //printf("Entered number of %d arguments\n", argc);
 
@@ -62,6 +74,9 @@ int main(int argc, char *argv[]) {
             break;                
         } else if (strcmp(arg, "ls") == 0 && i + 1 < argc) {
             list_directory(argv[i + 1]);
+            break;
+        } else if (strcmp(arg, "cd") == 0 && i + 1 < argc) {
+            changing_directory(argv[i + 1]);
             break;
         } else {
             printf("Entered nothing good!\n");
