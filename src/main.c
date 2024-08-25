@@ -83,13 +83,13 @@ int main(int argc, char *argv[]) {
         } else if (strcmp(arg, "cd") == 0 && i + 1 < argc) {
             changing_directory(argv[i + 1]);
             break;
-        } else if (strcmp(arg, "cdir") == 0 && i + 1 < argc) {
-            if (argc == 3) {
-                create_dir(".", argv[i + 1]);
-                break;
-            } else if (argc == 4) {
+        } else if (strcmp(arg, "cdir") == 0) {
+            if (i + 2 < argc) { // Two arguments after "cdir"
                 create_dir(argv[i + 1], argv[i + 2]);
-                break;
+            } else if (i + 1 < argc) { // One argument after "cdir"
+                create_dir(".", argv[i + 1]);                
+            } else {
+                printf("Error: no directory name provided \n");
             }
             break;
         } else {
