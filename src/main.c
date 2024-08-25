@@ -55,6 +55,11 @@ void changing_directory(const char *path) {
     }
 }
 
+void create_dir(const char *path, const char *name) {
+    printf("%s\n", path);
+    printf("%s\n", name);    
+}
+
 
 int main(int argc, char *argv[]) {
     //printf("Entered number of %d arguments\n", argc);
@@ -77,6 +82,15 @@ int main(int argc, char *argv[]) {
             break;
         } else if (strcmp(arg, "cd") == 0 && i + 1 < argc) {
             changing_directory(argv[i + 1]);
+            break;
+        } else if (strcmp(arg, "cdir") == 0 && i + 1 < argc) {
+            if (argc == 3) {
+                create_dir(".", argv[i + 1]);
+                break;
+            } else if (argc == 4) {
+                create_dir(argv[i + 1], argv[i + 2]);
+                break;
+            }
             break;
         } else {
             printf("Entered nothing good!\n");
