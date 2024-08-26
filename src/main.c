@@ -2,6 +2,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <dirent.h>
+#include <sys/stat.h>
 
 
 void current_dir_name_path(const char *str) {
@@ -56,8 +57,15 @@ void changing_directory(const char *path) {
 }
 
 void create_dir(const char *path, const char *name) {
-    printf("%s\n", path);
-    printf("%s\n", name);    
+    if (strcmp(path, ".") == 0) {
+        int createDirSuccess = mkdir(("./%s", name), 0755);       
+        if (createDirSuccess == 0) {
+            printf("Directory created\n");
+        } 
+        // printf("./%s\n", name);
+    }    
+    // printf("%s\n", path);
+    // printf("%s\n", name);    
 }
 
 
