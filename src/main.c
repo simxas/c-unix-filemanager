@@ -57,12 +57,18 @@ void changing_directory(const char *path) {
 }
 
 void create_dir(const char *path, const char *name) {
+    struct stat st = {0};
+    
     if (strcmp(path, ".") == 0) {
-        int createDirSuccess = mkdir(("./%s", name), 0755);       
+        if (stat(name, &st) == -1) {
+             printf("Directory exists\n");
+        }
+        int createDirSuccess = mkdir((name), 0755);       
         if (createDirSuccess == 0) {
             printf("Directory created\n");
-        } 
-        // printf("./%s\n", name);
+        } else {
+            printf("Failed creating directory\n");
+        }
     }    
     // printf("%s\n", path);
     // printf("%s\n", name);    
